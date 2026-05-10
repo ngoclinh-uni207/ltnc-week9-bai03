@@ -1,6 +1,5 @@
 name: Java CI Pipeline
 
-# Trigger (kích hoạt) quy trình này mỗi khi có code mới đẩy lên nhánh main
 on:
   push:
     branches: [ "main", "master" ]
@@ -9,24 +8,24 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest # Chạy trên máy chủ Ubuntu ảo của GitHub
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Source Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4   # Đã đổi thành v4
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4 # Đã đổi thành v4
         with:
           java-version: '17'
           distribution: 'temurin'
-          cache: 'maven' # Hỗ trợ cache để build nhanh hơn ở các lần sau
+          cache: 'maven'
 
       - name: Build and Test with Maven
         run: mvn clean verify package
 
-      - name: Upload Artifact (Lưu trữ file build)
-        uses: actions/upload-artifact@v3
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4 # Đã đổi thành v4
         with:
           name: compiled-project-jar
           path: target/*.jar
